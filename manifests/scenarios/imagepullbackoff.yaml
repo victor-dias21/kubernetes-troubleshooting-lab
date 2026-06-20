@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: imagepullbackoff-demo
+  namespace: k8s-troubleshooting-lab
+  labels:
+    scenario: imagepullbackoff
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: imagepullbackoff-demo
+  template:
+    metadata:
+      labels:
+        app: imagepullbackoff-demo
+        scenario: imagepullbackoff
+    spec:
+      containers:
+        - name: app
+          image: ghcr.io/victor-dias21/imagem-inexistente:0.0.1
+          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: 10m
+              memory: 32Mi
+            limits:
+              cpu: 50m
+              memory: 64Mi
